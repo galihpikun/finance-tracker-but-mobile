@@ -13,6 +13,7 @@ import {
   Text,
   TextInput,
 } from "react-native-paper";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Budget() {
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -111,47 +112,51 @@ export default function Budget() {
       </Appbar.Header>
 
       {/* SALDO CARD */}
-      <View style={{ padding: 16 }}>
-        <Card
-          style={{
-            borderRadius: 24,
-            backgroundColor: "#1e293b",
-            padding: 10,
-          }}>
-          <Card.Content>
-            <Text style={{ color: "#94a3b8" }}>Total Balance</Text>
-            <Text
-              style={{
-                color: "#22c55e",
-                fontSize: 32,
-                fontWeight: "bold",
-                marginVertical: 10,
-              }}>
-              Rp {saldo.toLocaleString("id-ID")}
-            </Text>
+      <View style={{ padding: 16, marginBottom:12 }}>
+  <LinearGradient
+    colors={["#3b82f6", "#06b6d4"]} // biru → cyan
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 1 }}
+    style={{
+      borderRadius: 24,
+      padding: 16,
+    }}>
+    
+    <Text style={{ color: "#e0f2fe" }}>Total Balance</Text>
 
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}>
-              <View>
-                <Text style={{ color: "#94a3b8" }}>Income</Text>
-                <Text style={{ color: "#22c55e" }}>
-                  + Rp {totalIn.toLocaleString("id-ID")}
-                </Text>
-              </View>
+    <Text
+      style={{
+        color: "white",
+        fontSize: 32,
+        fontWeight: "bold",
+        marginVertical: 10,
+      }}>
+      Rp {saldo.toLocaleString("id-ID")}
+    </Text>
 
-              <View>
-                <Text style={{ color: "#94a3b8" }}>Expense</Text>
-                <Text style={{ color: "#ef4444" }}>
-                  - Rp {totalOut.toLocaleString("id-ID")}
-                </Text>
-              </View>
-            </View>
-          </Card.Content>
-        </Card>
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}>
+      
+      <View>
+        <Text style={{ color: "#e0f2fe" }}>Income</Text>
+        <Text style={{ color: "white", fontWeight: "600" }}>
+          + Rp {totalIn.toLocaleString("id-ID")}
+        </Text>
       </View>
+
+      <View>
+        <Text style={{ color: "#e0f2fe" }}>Expense</Text>
+        <Text style={{ color: "white", fontWeight: "600" }}>
+          - Rp {totalOut.toLocaleString("id-ID")}
+        </Text>
+      </View>
+
+    </View>
+  </LinearGradient>
+</View>
 
       {/* LIST */}
       <FlatList

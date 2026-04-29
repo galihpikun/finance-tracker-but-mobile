@@ -57,7 +57,7 @@ export default function Auth() {
   {/* HEADER */}
   <View style={{ marginBottom: 30 }}>
     <Text style={{ color: "white", fontSize: 28, fontWeight: "bold" }}>
-      Welcome Back 👋
+      Welcum Back 👋
     </Text>
     <Text style={{ color: "#94a3b8", marginTop: 4 }}>
       Manage your finance easily

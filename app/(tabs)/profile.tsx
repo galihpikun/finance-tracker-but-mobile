@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, ActivityIndicator } from "react-native";
-import { Text } from "react-native-paper";
+import { Text, Card } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/db";
@@ -21,65 +21,138 @@ export default function ProfileScreen() {
   const initials = email ? email[0].toUpperCase() : "?";
 
   const menuItems = [
-    { label: "Favorite", icon: "heart-outline", color: "#e24b4a", route: "/favorite" },
-    { label: "Watchlist", icon: "bookmark-outline", color: "#00b7ff", route: "/watchlist" },
+    {
+      label: "Income History",
+      icon: "arrow-down-circle",
+      color: "#22c55e",
+    },
+    {
+      label: "Expense History",
+      icon: "arrow-up-circle",
+      color: "#ef4444",
+    },
   ];
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#02041a" }}>
-        <ActivityIndicator size="large" color="#00b7ff" />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#0f172a",
+        }}>
+        <ActivityIndicator size="large" color="#22c55e" />
       </View>
     );
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#02041a" }}>
-
-      {/* Header */}
-      <View style={{ padding: 16, backgroundColor: "#061a31", borderBottomColor: "#00b7ff", borderBottomWidth: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", height: 60 }}>
-        <Text variant="headlineMedium" style={{ color: "#fff", fontWeight: "bold" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#0f172a" }}>
+      
+      {/* HEADER */}
+      <View style={{ padding: 20 }}>
+        <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
           Profile
+        </Text>
+        <Text style={{ color: "#94a3b8" }}>
+          Manage your account
         </Text>
       </View>
 
-      <View style={{ padding: 24 }}>
+      <View style={{ padding: 16 }}>
 
-        {/* Avatar + email */}
-        <View style={{ alignItems: "center", marginBottom: 32 }}>
-          <View style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: "#061a31", borderWidth: 2, borderColor: "#00b7ff44", alignItems: "center", justifyContent: "center", marginBottom: 12 }}>
-            <Text style={{ color: "#00b7ff", fontSize: 32, fontWeight: "700" }}>{initials}</Text>
-          </View>
-          <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>{email}</Text>
-        </View>
+        {/* USER CARD */}
+        <Card
+          style={{
+            backgroundColor: "#1e293b",
+            borderRadius: 24,
+            marginBottom: 20,
+          }}>
+          <Card.Content
+            style={{
+              alignItems: "center",
+              paddingVertical: 24,
+            }}>
+            
+            {/* Avatar */}
+            <View
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: 40,
+                backgroundColor: "#0f172a",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 12,
+              }}>
+              <Text
+                style={{
+                  color: "#22c55e",
+                  fontSize: 32,
+                  fontWeight: "bold",
+                }}>
+                {initials}
+              </Text>
+            </View>
 
-        {/* Menu list */}
-        <View style={{ gap: 10 }}>
+            <Text style={{ color: "white", fontSize: 16 }}>
+              {email}
+            </Text>
+          </Card.Content>
+        </Card>
+
+        {/* MENU */}
+        <View style={{ gap: 12 }}>
           {menuItems.map((item) => (
             <TouchableOpacity
               key={item.label}
-              onPress={() => router.push(item.route as any)}
-              style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#061a31", borderWidth: 1, borderColor: "#0d2a4a", borderRadius: 12, padding: 16, gap: 14 }}
-            >
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                backgroundColor: "#1e293b",
+                borderRadius: 16,
+                padding: 16,
+              }}>
               <Ionicons name={item.icon as any} size={22} color={item.color} />
-              <Text style={{ color: "#fff", fontSize: 15, flex: 1 }}>{item.label}</Text>
-              <Ionicons name="chevron-forward" size={18} color="#555" />
+              
+              <Text
+                style={{
+                  color: "white",
+                  marginLeft: 12,
+                  flex: 1,
+                }}>
+                {item.label}
+              </Text>
+
+              <Ionicons
+                name="chevron-forward"
+                size={18}
+                color="#64748b"
+              />
             </TouchableOpacity>
           ))}
         </View>
 
-        {/* Logout */}
-<TouchableOpacity
-  onPress={async () => {
-    await supabase.auth.signOut();
-    router.replace("/");
-  }}
-  style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#1a0606", borderWidth: 1, borderColor: "#e24b4a33", borderRadius: 12, padding: 16, gap: 14, marginTop: 16 }}
->
-  <Ionicons name="log-out-outline" size={22} color="#e24b4a" />
-  <Text style={{ color: "#e24b4a", fontSize: 15, flex: 1 }}>Logout</Text>
-</TouchableOpacity>
-
+        {/* LOGOUT */}
+        <TouchableOpacity
+          onPress={async () => {
+            await supabase.auth.signOut();
+            router.replace("/");
+          }}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            backgroundColor: "#1e293b",
+            borderRadius: 16,
+            padding: 16,
+            marginTop: 20,
+          }}>
+          <Ionicons name="log-out-outline" size={22} color="#ef4444" />
+          <Text style={{ color: "#ef4444", marginLeft: 12, flex: 1 }}>
+            Logout
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

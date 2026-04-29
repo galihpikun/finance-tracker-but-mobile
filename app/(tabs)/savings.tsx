@@ -184,7 +184,7 @@ export default function Savings() {
 
                 <Button
                   mode="contained"
-                  style={{ marginTop: 10 }}
+                  style={{ marginTop: 10, backgroundColor: "#22c55e" }}
                   onPress={() => {
                     setSelectedGoal(item);
                     setDialogPay(true);

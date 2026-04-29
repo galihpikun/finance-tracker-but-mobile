@@ -52,6 +52,15 @@ export default function TabLayout() {
     ),
   }}
 />
+      <Tabs.Screen
+  name="dashboard"
+  options={{
+    title: "Dashboard",
+    tabBarIcon: ({ color }) => (
+      <IconSymbol size={24} name="chart.pie.fill" color={color} />
+    ),
+  }}
+/>
 
 <Tabs.Screen
   name="savings"
